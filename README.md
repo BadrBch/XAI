@@ -46,7 +46,7 @@ This project integrates two distinct Explainable AI (XAI) systems into a single,
 1. **Clone the repository**
 ```bash
 git clone <repository-url>
-cd Project_XAI
+cd XAI
 
 ```
 
