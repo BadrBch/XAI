@@ -2,6 +2,7 @@
 
 # Core ML/AI
 tensorflow>=2.10.0
+tf_keras>=2.15.0
 numpy>=1.21.0
 
 # Audio Processing
@@ -16,7 +17,7 @@ scikit-image>=0.19.0
 torch>=2.0.0
 torchvision>=0.15.0
 torchxrayvision>=1.2.0
-pytorch-grad-cam>=1.4.0
+grad-cam>=1.4.0
 
 # XAI Libraries
 lime>=0.2.0
