@@ -10,7 +10,7 @@ This project addresses the engineering challenge of unifying two distinct deep l
 
 ### 2.1 Hybrid Backend Design
 A significant technical constraint was the need to support heterogeneous deep learning frameworks simultaneously.
-****Audio Subsystem****: Relies on tensorflow (legacy Keras) for the MobileNetV2 architecture.
+****Audio Subsystem****: Relies on tensorflow (legacy Keras, because the newer was non compatible with our environnement) for the MobileNetV2 architecture.
 ****Image Subsystem****: Utilizes torch and torchxrayvision for the DenseNet121 architecture.
 
 To manage this, we implemented a ****Factory Pattern**** in src/model_loader.py. This module abstracts the initialization logic, loading models into memory only upon first request (Lazy Loading) and caching them via @st.cache_resource to minimize inference latency.
@@ -21,7 +21,7 @@ We developed a framework-agnostic XAI wrapper (src/xai_engine.py). This module s
 ## 3. Model Selection and Methodology
 
 ### 3.1 Audio Classification (Deepfake Detection)
-We adopted a transfer learning approach using ****MobileNetV2****.
+We adopted a transfer learning approach using ****MobileNetV2****. The reason is its the model with the best results in the deepfake repo.
 ****Preprocessing****: Raw .wav files are converted into Mel-Spectrograms. This transformation allows us to treat audio classification as a computer vision problem, leveraging the spatial feature extraction capabilities of CNNs.
 ****Performance****: The lightweight nature of MobileNetV2 ensures low-latency inference, crucial for the interactive dashboard.
 
@@ -44,4 +44,18 @@ We integrated three complementary methods to validate model decision-making.
 
 ### 4.1 Grad-CAM (Gradient-weighted Class Activation Mapping)
 This method was essential for visualizing the "where" of the prediction.
-****Audio****: We compute gradients of the target class with respect to the last convolutional block of MobileNetV2.
+*   **Audio**: We compute gradients of the target class with respect to the last convolutional block of MobileNetV2.
+*   **Image**: We registered forward and backward hooks on the `features` layer of the DenseNet121. This was necessary because `torchxrayvision` models optimize the feature map flow differently than standard torchvision models.
+
+### 4.2 LIME (Local Interpretable Model-agnostic Explanations)
+LIME was implemented using the `lime_image` module.
+*   **Segmentation Strategy**: We utilized Quickshift segmentation to define superpixels.
+*   **Adaptation**: For audio, LIME is applied to the spectrogram image. This provides an intuitive check: if LIME highlights background noise rather than the voice formants, we know the model is overfitting to silence/artifacts.
+
+### 4.3 SHAP (SHapley Additive exPlanations)
+We employed `shap.KernelExplainer` for its model-agnostic properties.
+*   **Optimization**: Due to the high computational cost of Shapley value estimation, we implemented a background summarization strategy (using K-means clustering on a subset of data) to serve as the reference distribution. This reduced explanation generation time from minutes to seconds without a significant loss in fidelity.
+
+## 5. Conclusion
+
+The final platform demonstrates the viability of unifying disparate Deep Learning frameworks into a user-centric application. The transition to specialized medical models (`torchxrayvision`) was the decisive factor in achieving credible results for the lung pathology module. By combining this with a robust XAI suite, the tool serves not just as a classifier, but as an auditing mechanism for "black box" models.
