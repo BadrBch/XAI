@@ -81,6 +81,10 @@ streamlit run app.py
 1.  **Inference Mode**: Upload raw data (Audio `.wav` or Medical Imaging `.jpg/.png`). The backend logic utilizes a factory pattern to route the file to the appropriate pre-processing and model pipeline.
 2.  **XAI Selection**: Choose an interpretation algorithm. The system will render the decision boundary (Real/Fake or Pathology) alongside the visual explanation.
 3.  **Cross-Method Validation**: Use the "Comparison Mode" to audit a sample against all three XAI techniques. This is particularly useful for analyzing edge cases where models might diverge in their reasoning.
+### Test Data
+To facilitate testing, we have provided sample datasets within the repository:
+*   `Audio_Test/`: Contains sample `.wav` files (Real vs. Fake) to test the deepfake detection module.
+*   `Images_Test/`: Contains sample Chest X-Rays `.jpg/.png` to test the pathology detection module.
 
 ---
 
