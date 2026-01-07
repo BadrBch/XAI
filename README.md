@@ -1,8 +1,8 @@
-> **M2-DS Final Project - 2025**
-DIA 2 
+# Unified XAI Interface: Deepfake & Pathology Detection
+**M2-DS Final Project - 2025**
+**DIA 2**
 
 ## Team Members
-
 * Badr Bouchabchoub
 * Seifeddine Ben Rhouma
 * Eric Bernhart
@@ -11,47 +11,44 @@ DIA 2
 
 ---
 
-## Project Overview
+## 1. Abstract
+The primary objective of this project is to unify two distinct classification workflows into a single, cohesive interactive platform. By integrating state-of-the-art architectures for **Audio Deepfake Detection** and **Lung Cancer Diagnosis**, we aim to provide not just accurate predictions, but also robust interpretability. The application leverages a suite of Explainable AI (XAI) techniques—Grad-CAM, LIME, and SHAP—bridging the gap between "black box" model performance and user trust.
 
-This project integrates two distinct Explainable AI (XAI) systems into a single, unified interactive platform. It provides a seamless interface for processing multi-modal data (Audio and Images) to detect Deepfakes and Lung Cancer, while offering powerful interpretability through state-of-the-art XAI techniques.
+### Technical Scope & Features
 
-### Key Features
+**Multi-Modal Classification Engines:**
+*   **Audio Pipeline**: Detection of synthetic voice manipulation (Deepfakes) using **MobileNetV2** trained on Mel-Spectrogram features.
+*   **Image Pipeline**: Pathological screening for lung conditions using a transfer-learning approach with **DenseNet121** (TorchXRayVision).
 
-* **Multi-Modal Support**:
-* **Audio**: Deepfake detection using Mel-Spectrogram analysis with MobileNetV2.
-* **Image**: Lung cancer pathology detection using TorchXRayVision (DenseNet121).
+**Explainability Module:**
+We implemented three complementary interpretation layers to validate model behaviors:
+*   **Grad-CAM**: Generates class-discriminative localization maps (Heatmaps) for Convolutional Neural Networks.
+*   **LIME**: Provides local, interpretable approximations of specific predictions.
+*   **SHAP**: Attribues feature importance values based on cooperative game theory concepts.
 
-
-* **Unified Interface**: A modern, flat-design Streamlit dashboard for easy interaction.
-* **Explainable AI (XAI)**:
-* **Grad-CAM**: Visual heatmaps highlighting important regions.
-* **LIME**: Local interpretable model-agnostic explanations.
-* **SHAP**: Game-theoretic approach to feature importance.
-
-
-* **Smart Filtering**: Automatic compatibility checks ensure only relevant XAI methods are shown for each input type.
-* **Comparison Mode**: Dedicated tab to compare LIME, Grad-CAM, and SHAP results side-by-side.
+**Platform Capabilities:**
+*   **Dynamic UI**: A Streamlit-based dashboard designed for ease of use and real-time inference.
+*   **Context-Aware Filtering**: The system automatically restricts XAI method selection based on the input modality (e.g., enabling Grad-CAM only for compatible image tensors).
+*   **Comparative Analysis**: A dedicated view to juxtapose results from LIME, Grad-CAM, and SHAP simultaneously, allowing for cross-verification of explanatory evidence.
 
 ---
 
-## Setup & Installation
+## 2. Setup & Installation
 
-### Prerequisites
+### Requirements
+*   **Environment**: Python 3.9+
+*   **Version Control**: Git
 
-* Python 3.9 or higher
-* Git
+### Deployment
 
-### Installation Steps
-
-1. **Clone the repository**
+**1. Clone the repository**
 ```bash
 git clone <repository-url>
 cd XAI
-
 ```
 
-
-2. **Create a Virtual Environment** (Recommended)
+**2. Environment Configuration**
+It is strictly recommended to use a virtual environment to avoid dependency conflicts, particularly with TensorFlow/PyTorch versioning.
 ```bash
 # macOS/Linux
 python3 -m venv venv
@@ -60,83 +57,54 @@ source venv/bin/activate
 # Windows
 python -m venv venv
 .\venv\Scripts\activate
-
 ```
 
-
-3. **Install Dependencies**
+**3. Dependency Installation**
 ```bash
 pip install -r requirements.txt
-
 ```
-
-
 
 ---
 
-## Usage
+## 3. Usage Guide
 
-### Running the Application
-
-To start the web interface, run the following command in your terminal:
+### Launching the Dashboard
+Execute the wrapper script from the project root:
 
 ```bash
-# 1. Activate the virtual environment
 source venv/bin/activate
-# On Windows use: .\venv\Scripts\activate
-
-# 2. Run the application
 streamlit run app.py
 ```
+*The interface typically binds to `http://localhost:8501`.*
 
-The application will open automatically in your default web browser (usually at `http://localhost:8501`).
-
-### How to Use
-
-1. **Project Overview**: Read about the models and capabilities.
-2. **Analysis Mode**:
-* Upload a file (Audio `.wav` or Image `.jpg/.png`).
-* The system automatically detects the file type and loads the appropriate model.
-* Select an XAI method (Grad-CAM, LIME, or SHAP).
-* View the prediction (Real/Fake or Pathology) and the explanation visualization.
-
-
-3. **Comparison Mode**:
-* Upload a file to see all three XAI methods generated simultaneously side-by-side.
-* Useful for evaluating which explanation method offers the best insight for a specific sample.
-
-
+### Workflow
+1.  **Inference Mode**: Upload raw data (Audio `.wav` or Medical Imaging `.jpg/.png`). The backend logic utilizes a factory pattern to route the file to the appropriate pre-processing and model pipeline.
+2.  **XAI Selection**: Choose an interpretation algorithm. The system will render the decision boundary (Real/Fake or Pathology) alongside the visual explanation.
+3.  **Cross-Method Validation**: Use the "Comparison Mode" to audit a sample against all three XAI techniques. This is particularly useful for analyzing edge cases where models might diverge in their reasoning.
 
 ---
 
-## Generative AI Usage Statement
+## 4. Statement on Generative AI Usage
 
-> **Transparency Declaration**
+In accordance with project guidelines, we document the specific contributions of AI tools in our development workflow. The core architectural logic, model selection, and final validation remains the sole work of the student team.
 
-This project was developed with the assistance of Generative AI tools to enhance code quality, optimize refactoring, and generate documentation.
-
-**Claude Code / Vibe Coding** | **Code Refactoring & Integration**: Used to merge the original Deepfake and Lung Cancer repositories into a modular structure (`src/` folder), ensuring clean separation of concerns.<br>
-
-<br>**Debugging**: Assisted in resolving TensorFlow/PyTorch conflicts (GPU memory handling) and ensuring compatibility between Keras 2 and Keras 3 environments. |
-| **Streamlit Assistant** | **UI Design**: Helped generate the custom CSS for the modern "Flat Design" aesthetic to improve user experience. |
-| **Antigravity Agent** | **Documentation**: Assisted in structuring and writing this README and the Technical Report to ensure all project requirements were met. |
-
-*The core logic, architectural decisions, and final validation were performed by the student team.*
+*   **Claude Code**: Utilized for refactoring the legacy codebases into the modular `src/` directory structure and resolving API conflicts between TensorFlow (Keras 2) and PyTorch.
+*   **Streamlit Assistant**: Consulted for CSS overrides to implement the custom "Flat Design" UI theme.
+*   **Antigravity Agent**: Assisted in formatting the technical documentation and complying with report structure requirements.
 
 ---
 
-## Project Structure
+## 5. Project Architecture
 
 ```
 Project_XAI/
-|-- app.py                  # Main Streamlit Dashboard application
-|-- requirements.txt        # Project dependencies
-|-- README.md               # Project documentation
-|-- TECHNICAL_REPORT.md     # In-depth technical details
-|-- src/
-|   |-- model_loader.py     # Model loading logic (Factory Pattern)
-|   |-- preprocessing.py    # Data preprocessing for Audio/Images
-|   |-- xai_engine.py       # Implementation of Grad-CAM, LIME, SHAP
-|-- models/                 # Directory for saved model weights
-
+├── app.py                  # Streamlit entry point & detailed dashboard logic
+├── requirements.txt        # Frozen dependencies
+├── README.md               # Main documentation
+├── TECHNICAL_REPORT.md     # Detailed methodology 
+├── src/
+│   ├── model_loader.py     # Factory class for model instantiation
+│   ├── preprocessing.py    # Signal processing (Audio) & Tensor transforms (Image)
+│   └── xai_engine.py       # Wrapper classes for Grad-CAM, LIME, and SHAP
+└── models/                 # Pre-trained weights directory
 ```
