@@ -38,6 +38,18 @@ To address these deficiencies, we migrated to the ****DenseNet121**** architectu
 ****Strategic Advantage****: We leveraged this multi-label capability to enhance the user experience. By default, we configured the system to prioritize ****"Mass"**** detection, as it is a critical indicator for lung cancer, while still allowing the user to filter for any of the other 17 conditions. This design choice focuses the initial analysis on the most relevant pathology for our use case while maintaining broadened diagnostic utility.
 ****Result****: This domain-specific pre-training yielded superior feature extraction. The Grad-CAM outputs became significantly more clinically relevant, correctly localizing pathological regions within the lung fields.
 
+### 3.3 Data Sources
+
+To ensure the validity of our experiments, we utilized distinct, high-quality sources for our datasets:
+
+*   **X-Ray Pathology Data**:
+    *   **Pathological Samples**: Sourced from [Radiology Masterclass - Lung Cancer](https://www.radiologymasterclass.co.uk/gallery/chest/lung_cancer/mass_consolidation). These images provide clear examples of mass consolidations essential for validating our "Mass" detection capabilities.
+    *   **Normal Controls**: Sourced from [Radiology Masterclass - Normal Chest X-Ray](https://www.radiologymasterclass.co.uk/gallery/chest/quality/normal-chest-x-ray-male) for establishing a baseline for healthy lung tissue.
+
+*   **Audio Deepfake Data**:
+    *   **Real Audio Samples**: Obtained from the Mendeley Data repository [Deep Fake Detection Dataset](https://data.mendeley.com/datasets/5czyx2vppv/2).
+    *   **Fake Audio Generation**: Synthetic voice samples were generated using a high-quality, free online Text-to-Speech (TTS) service to simulate accessible deepfake generation vectors.
+
 ## 4. Explainable AI Implementation
 
 We integrated three complementary methods to validate model decision-making.
