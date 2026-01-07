@@ -32,7 +32,7 @@ Initial Approach & Limitations:
 Initially, we experimented with general-purpose architectures such as ****VGG16**** and ****ResNet50****, pre-trained on ImageNet. While these models performed adequately on standard object recognition, they struggled to generalize to the grayscale, texture-heavy domain of chest X-Rays. We observed high false-positive rates and, more critically, the Grad-CAM heatmaps frequently focused on irrelevant artifacts (e.g., clavicles or image borders) rather than lung opacities.
 
 Final Implementation: TorchXRayVision:
-To address these deficiencies, we migrated to the ****DenseNet121**** architecture provided by the torchxrayvision library.
+To address these deficiencies, we migrated to the ****DenseNet121**** architecture provided by the torchxrayvision library. The repo of the model we used is : https://github.com/mlmed/torchxrayvision
 ****Weights****: densenet121-res224-all
 ****Justification****: This library is known for its effectiveness in detecting lung anomalies. It provided a powerful pre-trained model capable of detecting ****18 different pathologies**** simultaneously (including Effusion, Pneumonia, and Infiltration).
 ****Strategic Advantage****: We leveraged this multi-label capability to enhance the user experience. By default, we configured the system to prioritize ****"Mass"**** detection, as it is a critical indicator for lung cancer, while still allowing the user to filter for any of the other 17 conditions. This design choice focuses the initial analysis on the most relevant pathology for our use case while maintaining broadened diagnostic utility.
