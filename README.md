@@ -84,13 +84,11 @@ streamlit run app.py
 
 ---
 
-## 4. Statement on Generative AI Usage
+## 4. Generative AI Usage
 
-In accordance with project guidelines, we document the specific contributions of AI tools in our development workflow. The core architectural logic, model selection, and final validation remains the sole work of the student team.
-
-*   **Claude Code**: Utilized for refactoring the legacy codebases into the modular `src/` directory structure and resolving API conflicts between TensorFlow (Keras 2) and PyTorch.
-*   **Streamlit Assistant**: Consulted for CSS overrides to implement the custom "Flat Design" UI theme.
-*   **Antigravity Agent**: Assisted in formatting the technical documentation and complying with report structure requirements.
+This project was developed using a "Vibe Coding" methodology, utilizing advanced AI assistants, in our exemple **Claude Code** and autonomous agents to ensure code correctness and efficiency. 
+    
+    The development process remained strictly **human-in-the-loop**, ensuring the final product aligns perfectly with our original ideas and architectural vision. The AI acted as a powerful accelerator while the human developer maintained full creative and technical control.
 
 ---
 
