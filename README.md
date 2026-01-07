@@ -86,9 +86,9 @@ streamlit run app.py
 
 ## 4. Generative AI Usage
 
-This project was developed using a "Vibe Coding" methodology, utilizing advanced AI assistants, in our exemple **Claude Code** and autonomous agents to ensure code correctness and efficiency. 
+This project was developed using a "Vibe Coding" methodology, utilizing advanced AI assistants, in our exemple **Claude Code** and autonomous agents to ensure code correctness and efficiency. The development process remained strictly **human-in-the-loop**, ensuring the final product aligns perfectly with our original ideas and architectural vision. The AI acted as a powerful accelerator while the human developer maintained full creative and technical control.
     
-    The development process remained strictly **human-in-the-loop**, ensuring the final product aligns perfectly with our original ideas and architectural vision. The AI acted as a powerful accelerator while the human developer maintained full creative and technical control.
+    
 
 ---
 
